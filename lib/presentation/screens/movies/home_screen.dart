@@ -1,6 +1,7 @@
-import 'package:challenge/presentation/providers/movies/movies_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:challenge/presentation/providers/providers.dart';
+import 'package:challenge/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -8,9 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _HomeView()
-    );
+    return const Scaffold(body: _HomeView());
   }
 }
 
@@ -30,15 +29,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final popularMovies = ref.watch(popularMoviesProvider);
-    return ListView.builder(
-      itemCount: popularMovies.length,
-      itemBuilder: (context, index) {
-        final movie = popularMovies[index];
-        return ListTile(
-          title: Text(movie.title),
-        );
-      }
+    // final popularMovies = ref.watch(popularMoviesProvider);
+    final moviesSlider = ref.watch(moviesSliderProvider);
+
+    return Column(
+      children: [const Appbar(), MoviesSlider(movies: moviesSlider)],
     );
   }
 }
