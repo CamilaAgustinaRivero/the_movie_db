@@ -1,5 +1,5 @@
 import "package:challenge/domain/entities/movie.dart";
 
-abstract class MovieDatasource {
-  Future <List<Movie>> getNowPlaying({ int page = 1});
+abstract class MoviesDatasource {
+  Future<List<Movie>> getPopular({int page = 1});
 }

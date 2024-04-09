@@ -1,4 +1,21 @@
 class Movie {
+  Movie({
+    required this.adult,
+    required this.backdropPath,
+    required this.genreIds,
+    required this.id,
+    required this.originalLanguage,
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
+    required this.posterPath,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount
+  });
+
   final bool adult;
   final bool video;
   final DateTime releaseDate;
@@ -13,20 +30,4 @@ class Movie {
   final String overview;
   final String posterPath;
   final String title;
-
-  Movie(
-      {required this.adult,
-      required this.backdropPath,
-      required this.genreIds,
-      required this.id,
-      required this.originalLanguage,
-      required this.originalTitle,
-      required this.overview,
-      required this.popularity,
-      required this.posterPath,
-      required this.releaseDate,
-      required this.title,
-      required this.video,
-      required this.voteAverage,
-      required this.voteCount});
 }
