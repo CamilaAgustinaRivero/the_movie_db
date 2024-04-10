@@ -1,11 +1,10 @@
-import 'package:challenge/domain/entities/movie.dart';
-import 'package:challenge/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final popularMoviesProvider =
-    StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getPopular;
+import 'package:challenge/domain/entities/movie.dart';
+import 'package:challenge/presentation/providers/movies/movies_repository_provider.dart';
 
+final popularMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getPopular;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 

@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+
 import 'package:challenge/config/constants/enviroment.dart';
 import 'package:challenge/domain/datasources/movies_datasource.dart';
+import 'package:challenge/domain/entities/movie.dart';
 import 'package:challenge/infrastructure/mappers/movie_mapper.dart';
 import 'package:challenge/infrastructure/models/themoviedb/themoviedb_response.dart';
-import 'package:challenge/domain/entities/movie.dart';
 
 class TheMovieDBDatasource extends MoviesDatasource {
   final dio = Dio(BaseOptions(
