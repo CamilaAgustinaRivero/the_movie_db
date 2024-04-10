@@ -9,7 +9,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: _HomeView());
+    return const Scaffold(
+      body: _HomeView(),
+      bottomNavigationBar: BottomNavigation(),
+    );
   }
 }
 
@@ -29,11 +32,19 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    // final popularMovies = ref.watch(popularMoviesProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
+    // final topRated = ref.watch(popularMoviesProvider);
+    // final upcomingMovies = ref.watch(popularMoviesProvider);
     final moviesSlider = ref.watch(moviesSliderProvider);
 
     return Column(
-      children: [const Appbar(), MoviesSlider(movies: moviesSlider)],
+      children: [
+        const Appbar(),
+        MoviesSlider(movies: moviesSlider),
+        MoviesSection(title: 'Más populares', movies: popularMovies),
+        // MoviesSection(title: 'Mejores calificadas', movies: topRated),
+        // MoviesSection(title: 'Próximas películas', movies: upcomingMovies),
+      ],
     );
   }
 }
