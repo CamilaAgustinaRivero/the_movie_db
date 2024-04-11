@@ -51,7 +51,7 @@ class _MoviesSectionState extends State<MoviesSection> {
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return _Slide(movie: widget.movies[index]);
+                    return FadeInRight(child: _Slide(movie: widget.movies[index]));
                   }),
             ),
           ],
@@ -100,16 +100,6 @@ class _Slide extends StatelessWidget {
                   fit: BoxFit.cover,
                   width: 180,
                   height: 250,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress != null) {
-                      return const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Center(
-                            child: CircularProgressIndicator(strokeWidth: 2)),
-                      );
-                    }
-                    return FadeIn(child: child);
-                  },
                 ),
               ),
             ),
@@ -127,11 +117,11 @@ class _Slide extends StatelessWidget {
               width: 170,
               child: Row(
                 children: [
-                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
-                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
-                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
+                  Text('Calificación', style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800, fontWeight: FontWeight.bold)),
                   const Spacer(),
                   Text(NumberFormats.number(movie.voteAverage), style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800, fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 5),
+                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
               ]),
             ),
           ],

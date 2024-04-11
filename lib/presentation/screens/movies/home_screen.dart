@@ -34,50 +34,56 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final initialLoading = ref.watch(initialLoadingProvider);
+    if (initialLoading) return const Loader();
+    
+    final moviesSlider = ref.watch(moviesSliderProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
     final topRated = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
-    final moviesSlider = ref.watch(moviesSliderProvider);
     final topFiveStyle = Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
     
-    return CustomScrollView(
-      slivers: [
-        const SliverAppBar(
-          floating: true,
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: EdgeInsets.symmetric(horizontal: 10),
-            title: Appbar(),
+    return Visibility(
+      visible: !initialLoading,
+      child: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.symmetric(horizontal: 10),
+              title: Appbar(),
+            ),
           ),
-        ),
-        SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-          return Column(
-            children: [
-              Text('Top 5', style: topFiveStyle),
-              MoviesSlider(movies: moviesSlider),
-              MoviesSection(
-                  title: 'Más populares',
-                  movies: popularMovies,
-                  loadNextPage: () {
-                    ref.read(popularMoviesProvider.notifier).loadNextPage();
-                  }),
-              MoviesSection(
-                  title: 'Mejores calificadas',
-                  movies: topRated,
-                  loadNextPage: () {
-                    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
-                  }),
-              MoviesSection(
-                  title: 'Próximos estrenos',
-                  movies: upcomingMovies,
-                  loadNextPage: () {
-                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
-                  }),
-              const SizedBox(height: 50),
-            ],
-          );
-        },
-        childCount: 1
-        ))
-    ]);
+          SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+            return Column(
+              children: [
+                Text('Top 5', style: topFiveStyle),
+                MoviesSlider(movies: moviesSlider),
+                MoviesSection(
+                    title: 'Más populares',
+                    movies: popularMovies,
+                    loadNextPage: () {
+                      ref.read(popularMoviesProvider.notifier).loadNextPage();
+                    }),
+                MoviesSection(
+                    title: 'Mejores calificadas',
+                    movies: topRated,
+                    loadNextPage: () {
+                      ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+                    }),
+                MoviesSection(
+                    title: 'Próximos estrenos',
+                    movies: upcomingMovies,
+                    loadNextPage: () {
+                      ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+                    }),
+                const SizedBox(height: 50),
+              ],
+            );
+          },
+          childCount: 1
+          ))
+      ]),
+    );
   }
 }

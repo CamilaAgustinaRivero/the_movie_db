@@ -12,9 +12,9 @@ class MoviesSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: SizedBox(
-        height: 280,
+        height: 290,
         width: double.infinity,
         child: Swiper(
           viewportFraction: 0.8,
@@ -66,7 +66,7 @@ class _Slide extends StatelessWidget {
               )),
         ),
         const SizedBox(height: 10),
-        Text(movie.title, style: titleStyle),
+        Text(movie.title, style: titleStyle, textAlign: TextAlign.center),
       ],
     );
   }
