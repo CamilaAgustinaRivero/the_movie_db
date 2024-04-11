@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +16,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 class _HomeView extends ConsumerStatefulWidget {
   const _HomeView();
 
@@ -41,7 +38,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final topRated = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final moviesSlider = ref.watch(moviesSliderProvider);
-
+    final topFiveStyle = Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
+    
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
@@ -54,6 +52,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         SliverList(delegate: SliverChildBuilderDelegate((context, index) {
           return Column(
             children: [
+              Text('Top 5', style: topFiveStyle),
               MoviesSlider(movies: moviesSlider),
               MoviesSection(
                   title: 'Más populares',
@@ -68,7 +67,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     ref.read(topRatedMoviesProvider.notifier).loadNextPage();
                   }),
               MoviesSection(
-                  title: 'Próximas películas',
+                  title: 'Próximos estrenos',
                   movies: upcomingMovies,
                   loadNextPage: () {
                     ref.read(upcomingMoviesProvider.notifier).loadNextPage();

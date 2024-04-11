@@ -40,7 +40,7 @@ class _MoviesSectionState extends State<MoviesSection> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 450,
+        height: 400,
         child: Column(
           children: [
             if (widget.title.isNotEmpty) _Title(title: widget.title),
@@ -124,23 +124,16 @@ class _Slide extends StatelessWidget {
                 )),
             const SizedBox(height: 10),
             SizedBox(
-              width: 180,
+              width: 170,
               child: Row(
                 children: [
-                  Icon(Icons.star, color: Colors.yellow.shade800),
-                  const SizedBox(width: 5),
-                  Text('${movie.voteAverage}', style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800)),
+                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
+                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
+                  Icon(Icons.star, color: Colors.yellow.shade800, size: 20),
+                  const Spacer(),
+                  Text(NumberFormats.number(movie.voteAverage), style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800, fontWeight: FontWeight.bold)),
               ]),
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: 180,
-              child: Row(
-                children: [
-                  const SizedBox(height: 10),
-                  Text('Reproducciones: ${NumberFormats.number(movie.popularity)}', style: textStyles.bodyMedium),
-              ]),
-            )
           ],
         ),
       ),
