@@ -6,15 +6,13 @@ class Appbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
     return SafeArea(
-        child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: SizedBox(
         width: double.infinity,
         child: Row(
           children: [
-            Icon(Icons.movie_filter_outlined, color: colors.primary),
+            Icon(Icons.movie_outlined, color: colors.primary),
             const SizedBox(width: 5),
             Text('Swiss Movies', style: titleStyle),
             const Spacer(),
@@ -22,6 +20,6 @@ class Appbar extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,23 +31,54 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final popularMovies = ref.watch(popularMoviesProvider);
-    // final topRated = ref.watch(popularMoviesProvider);
-    // final upcomingMovies = ref.watch(popularMoviesProvider);
+    final topRated = ref.watch(topRatedMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final moviesSlider = ref.watch(moviesSliderProvider);
 
-    return Column(
-      children: [
-        const Appbar(),
-        MoviesSlider(movies: moviesSlider),
-        MoviesSection(title: 'Más populares', movies: popularMovies),
-        // MoviesSection(title: 'Mejores calificadas', movies: topRated),
-        // MoviesSection(title: 'Próximas películas', movies: upcomingMovies),
-      ],
-    );
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.symmetric(horizontal: 10),
+            title: Appbar(),
+          ),
+        ),
+        SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+          return Column(
+            children: [
+              MoviesSlider(movies: moviesSlider),
+              MoviesSection(
+                  title: 'Más populares',
+                  movies: popularMovies,
+                  loadNextPage: () {
+                    ref.read(popularMoviesProvider.notifier).loadNextPage();
+                  }),
+              MoviesSection(
+                  title: 'Mejores calificadas',
+                  movies: topRated,
+                  loadNextPage: () {
+                    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+                  }),
+              MoviesSection(
+                  title: 'Próximas películas',
+                  movies: upcomingMovies,
+                  loadNextPage: () {
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+                  }),
+              const SizedBox(height: 50),
+            ],
+          );
+        },
+        childCount: 1
+        ))
+    ]);
   }
 }

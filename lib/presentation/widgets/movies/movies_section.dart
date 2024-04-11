@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:challenge/domain/entities/movie.dart';
 
-class MoviesSection extends StatelessWidget {
+class MoviesSection extends StatefulWidget {
   final List<Movie> movies;
   final String title;
   final VoidCallback? loadNextPage;
@@ -15,19 +15,43 @@ class MoviesSection extends StatelessWidget {
       this.loadNextPage});
 
   @override
+  State<MoviesSection> createState() => _MoviesSectionState();
+}
+
+class _MoviesSectionState extends State<MoviesSection> {
+  final scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if(widget.loadNextPage == null) return;
+      if((scrollController.position.pixels + 200) >= scrollController.position.maxScrollExtent) {
+        widget.loadNextPage!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: 450,
         child: Column(
           children: [
-            if (title.isNotEmpty) _Title(title: title),
+            if (widget.title.isNotEmpty) _Title(title: widget.title),
             Expanded(
               child: ListView.builder(
-                  itemCount: movies.length,
+                  controller: scrollController,
+                  itemCount: widget.movies.length,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return _Slide(movie: movies[index]);
+                    return _Slide(movie: widget.movies[index]);
                   }),
             ),
           ],
