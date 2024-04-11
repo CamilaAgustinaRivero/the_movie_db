@@ -46,6 +46,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return Visibility(
       visible: !initialLoading,
       child: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
         slivers: [
           const SliverAppBar(
             floating: true,
