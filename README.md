@@ -39,4 +39,6 @@ El proyecto utiliza las siguientes dependencias:
   - Descripción: Proporciona soporte para internacionalización y localización de la aplicación.
 
 
-Camila A. Rivero
+<p align="right">
+    Camila A. Rivero
+</p>
